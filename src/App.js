@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './components/Header';
-import Ticket from './components/Ticket';
+import { Ticket } from './components/Ticket';
 import { PlayButton } from './components/PlayButton';
 
 class App extends Component {
