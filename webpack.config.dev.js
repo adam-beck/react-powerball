@@ -26,8 +26,12 @@ module.exports = {
       include: path.join(__dirname, 'src')
     }, {
       test: /\.css$/,
-      loaders: ['style', 'css?modules&importLoaders=1', 'postcss'],
-      include: path.join(__dirname, 'src')
+      loaders: [
+        'style-loader',
+        'css?modules&importLoaders=1',
+        'postcss-loader'
+      ],
+      exclude: /node_modules/
     }]
   }
 };
