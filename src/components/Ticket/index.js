@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 import style from './style.css';
 
 class Ticket extends Component {
+  constructor() {
+    super();
+  }
+
   render() {
+    if (this.props.submitted) {
+      return (
+        <div>Ticket Submitted</div>
+      );
+    }
+
     return (
       <div className={style.ticket}>
         <input type="text" />

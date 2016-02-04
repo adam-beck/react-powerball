@@ -1,0 +1,9 @@
+.button {
+  font-size: 3em;
+  padding: 10px 50px;
+}
+
+.buttonContainer {
+  margin-top: 50px;
+  text-align: center;
+}
