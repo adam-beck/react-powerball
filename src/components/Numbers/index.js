@@ -2,35 +2,32 @@ import React from 'react';
 import style from './style.css';
 import classnames from 'classnames';
 
-const matchingNumber = (matching, numbers) => {
-  return classnames({
+const matchingNumber = (matching, numbers) => (
+  classnames({
     [style.number]: true,
     [style.matching]: matching && numbers,
     [style.nonMatching]: !matching && numbers
-  });
+  })
+);
+
+const curryInputId = (inputId, callback) => evt => {
+  callback(inputId, parseInt(evt.target.value, 10));
 };
 
-function foo(callback, inputId) {
-  return function(evt) {
-    callback(evt.target.value, inputId);
-  };
-}
+const Numbers = ({setValues, submitted, numbers, powerball, matching}) => (
 
-const Numbers = ({setValues, submitted, numbers, powerball, matching}) => {
+  <div className={style.ticket}>
+    <input onBlur={curryInputId('w1', setValues)} className={matchingNumber(matching[0], numbers)} type="text" disabled={submitted} value={numbers && numbers[0]} />
+    <input onBlur={curryInputId('w2', setValues)} className={matchingNumber(matching[1], numbers)} type="text" disabled={submitted} value={numbers && numbers[1]} />
+    <input onBlur={curryInputId('w3', setValues)} className={matchingNumber(matching[2], numbers)} type="text" disabled={submitted} value={numbers && numbers[2]} />
+    <input onBlur={curryInputId('w4', setValues)} className={matchingNumber(matching[3], numbers)} type="text" disabled={submitted} value={numbers && numbers[3]} />
+    <input onBlur={curryInputId('w5', setValues)} className={matchingNumber(matching[4], numbers)} type="text" disabled={submitted} value={numbers && numbers[4]} />
+    <div className={style.powerball}>
+      <h3>Powerball</h3>
+      <input onBlur={curryInputId('p1', setValues)} className={matchingNumber(matching[5], numbers)} type="text" disabled={submitted} value={powerball} />
+    </div>
+  </div>
 
-  return(
-      <div className={style.ticket}>
-        <input onBlur={foo(setValues, 'w1')} className={matchingNumber(matching[0], numbers)} type="text" disabled={submitted} value={numbers && numbers[0]} />
-        <input onBlur={foo(setValues, 'w2')} className={matchingNumber(matching[1], numbers)} type="text" disabled={submitted} value={numbers && numbers[1]} />
-        <input onBlur={foo(setValues, 'w3')} className={matchingNumber(matching[2], numbers)} type="text" disabled={submitted} value={numbers && numbers[2]} />
-        <input onBlur={foo(setValues, 'w4')} className={matchingNumber(matching[3], numbers)} type="text" disabled={submitted} value={numbers && numbers[3]} />
-        <input onBlur={foo(setValues, 'w5')} className={matchingNumber(matching[4], numbers)} type="text" disabled={submitted} value={numbers && numbers[4]} />
-        <div className={style.powerball}>
-          <h3>Powerball</h3>
-          <input onBlur={foo(setValues, 'p1')} className={matchingNumber(matching[5], numbers)} type="text" disabled={submitted} value={powerball} />
-        </div>
-      </div>
-  );
-};
+);
 
 export { Numbers };

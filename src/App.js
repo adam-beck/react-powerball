@@ -7,36 +7,41 @@ import { PlayButton } from './components/PlayButton';
 import { getRandomNumbers } from './utilities/randomNumbers';
 import { compareArrays } from './utilities/comparison';
 
-var ticketValues = {};
-function foo(value, id) {
-  ticketValues[id] = value;
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       submitted: false,
+      ticket: {},
       matching: [],
-      drawn: {}
+      drawn: {},
+      plays: 0,
+      winnings: 0
     };
 
     this.submitTicket = this.submitTicket.bind(this);
+    this.setTicketValue = this.setTicketValue.bind(this);
+  }
+
+  setTicketValue(id, value) {
+    const ticket = Object.assign({}, this.state.ticket, {[id]: value});
+    this.setState({ticket});
   }
 
   submitTicket() {
 
+    const { ticket } = this.state;
+
     const drawn = {
-      whiteballs: getRandomNumbers(5, 69).sort(),
+      whiteballs: getRandomNumbers(5, 69).sort((a, b) => a - b),
       powerball: getRandomNumbers(1, 26)
     };
 
+    const matching = compareArrays([ticket.w1, ticket.w2, ticket.w3, ticket.w4, ticket.w5], drawn.whiteballs)
+    .concat(compareArrays([ticket.p1], drawn.powerball));
 
-    const allEntered = [ticketValues.w1, ticketValues.w2, ticketValues.w3, ticketValues.w4, ticketValues.w5, ticketValues.p1].map(val => parseInt(val, 10));
-    const matching = compareArrays(allEntered, drawn.whiteballs.concat(drawn.powerball));
-
-    this.setState({ submitted: true, drawn, matching });
+    this.setState({ plays: this.state.plays + 1, submitted: true, drawn, matching });
 
   }
 
@@ -46,9 +51,10 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Numbers setValues={foo} submitted={this.state.submitted} matching={[]} />
+        <Numbers setValues={this.setTicketValue} submitted={this.state.submitted} matching={[]} />
         <PlayButton click={this.submitTicket} />
         <Numbers submitted={true} numbers={whiteballs} powerball={powerball && powerball[0]} matching={this.state.matching} />
+        <div>You have played {this.state.plays} times</div>
       </div>
     );
   }
