@@ -24,7 +24,7 @@ const Numbers = ({setValues, submitted, numbers, powerball, matching}) => (
     <input onBlur={curryInputId('w5', setValues)} className={matchingNumber(matching[4], numbers)} type="text" disabled={submitted} value={numbers && numbers[4]} />
     <div className={style.powerball}>
       <h3>Powerball</h3>
-      <input onBlur={curryInputId('p1', setValues)} className={matchingNumber(matching[5], numbers)} type="text" disabled={submitted} value={powerball} />
+      <input onBlur={curryInputId('pb', setValues)} className={matchingNumber(matching[5], numbers)} type="text" disabled={submitted} value={powerball} />
     </div>
   </div>
 

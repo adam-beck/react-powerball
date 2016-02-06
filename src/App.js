@@ -39,7 +39,7 @@ class App extends Component {
     };
 
     const matching = compareArrays([ticket.w1, ticket.w2, ticket.w3, ticket.w4, ticket.w5], drawn.whiteballs)
-    .concat(compareArrays([ticket.p1], drawn.powerball));
+    .concat(compareArrays([ticket.pb], drawn.powerball));
 
     this.setState({ plays: this.state.plays + 1, submitted: true, drawn, matching });
 
