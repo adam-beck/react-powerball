@@ -4,6 +4,7 @@ import range from 'lodash.range';
 import Header from './components/Header';
 import { Numbers } from './components/Numbers';
 import { PlayButton } from './components/PlayButton';
+import { Reset } from './components/Reset';
 
 import { getRandomNumbers } from './utilities/randomNumbers';
 import { compareArrays } from './utilities/comparison';
@@ -45,6 +46,7 @@ class App extends Component {
 
     this.submitTicket = this.submitTicket.bind(this);
     this.setTicketValue = this.setTicketValue.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   setTicketValue(id, value) {
@@ -62,14 +64,29 @@ class App extends Component {
       this.setState(Object.assign({}, {plays: this.state.plays + rounds, submitted: true}, aggregate));
   }
 
+  reset() {
+    this.setState({
+      submitted: false,
+      invalidTicket: true,
+      ticket: {},
+      matching: [],
+      drawn: {},
+      plays: 0,
+      winnings: 0
+    });
+  }
+
   render() {
     const {whiteballs, powerball} = this.state.drawn;
+    const { ticket } = this.state;
+
+    const userNumbers = [ticket.w1, ticket.w2, ticket.w3, ticket.w4, ticket.w5];
 
     return (
       <div>
         <Header />
 
-        <Numbers setValues={this.setTicketValue} submitted={this.state.submitted} matching={[]} />
+        <Numbers setValues={this.setTicketValue} submitted={this.state.submitted} numbers={userNumbers} powerball={ticket.pb}/>
 
         <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket} rounds={1} />
         <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket} rounds={1000} />
@@ -80,6 +97,8 @@ class App extends Component {
         <div>You have spent ${this.state.plays * 2}</div>
         <div>You have earned ${this.state.winnings}</div>
         <div>Net ${this.state.winnings - this.state.plays * 2}</div>
+
+        <Reset reset={this.reset} />
       </div>
     );
   }
