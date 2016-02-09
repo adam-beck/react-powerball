@@ -53,8 +53,6 @@ class App extends Component {
   }
 
   submitTicket(rounds) {
-
-    return () => {
       var { ticket, winnings } = this.state;
 
       const aggregate = range(rounds).reduce(prev => {
@@ -62,7 +60,6 @@ class App extends Component {
       }, {winnings});
 
       this.setState(Object.assign({}, {plays: this.state.plays + rounds, submitted: true}, aggregate));
-    };
   }
 
   render() {
@@ -71,10 +68,14 @@ class App extends Component {
     return (
       <div>
         <Header />
+
         <Numbers setValues={this.setTicketValue} submitted={this.state.submitted} matching={[]} />
-        <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket(1)} />
-        <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket(1000000)} text={'Play 1000000 Times'} />
+
+        <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket} rounds={1} />
+        <PlayButton disabled={this.state.invalidTicket} click={this.submitTicket} rounds={1000} />
+
         <Numbers submitted={true} numbers={whiteballs} powerball={powerball && powerball[0]} matching={this.state.matching} />
+
         <div>You have played {this.state.plays} times</div>
         <div>You have spent ${this.state.plays * 2}</div>
         <div>You have earned ${this.state.winnings}</div>
