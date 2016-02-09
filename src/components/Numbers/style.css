@@ -3,18 +3,31 @@
   text-align: center;
 }
 
-.powerball {
-  margin-top: 10px;
+.number[disabled] {
+  background-color: rgba(234, 233, 234, 0.44);
 }
 
 .number {
+  display: inline-block;
   margin: 0 2px;
+  width: 40px;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.4em;
+  border-radius: 6px;
 }
 
 .matching {
-  border: 2px solid green;
+  border: 2px solid rgba(0, 128, 0, 0.6);
 }
 
 .nonMatching {
-  border: 2px solid red;
+  border: 2px solid rgba(255, 0, 0, 0.4); 
+}
+
+.powerballLabel {
+  display: inline-block;
+  margin-left: 25px;
+  margin-right: 5px;
+  font-size: 1.4em;
 }
