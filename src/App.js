@@ -82,6 +82,11 @@ class App extends Component {
 
     const userNumbers = [ticket.w1, ticket.w2, ticket.w3, ticket.w4, ticket.w5];
 
+    const divStyle = {
+      marginTop: '40px',
+      textAlign: 'center'
+    };
+
     return (
       <div>
         <Header />
@@ -93,10 +98,12 @@ class App extends Component {
 
         <Numbers submitted={true} numbers={whiteballs} powerball={powerball && powerball[0]} matching={this.state.matching} />
 
-        <div>You have played {this.state.plays} times</div>
-        <div>You have spent ${this.state.plays * 2}</div>
-        <div>You have earned ${this.state.winnings}</div>
-        <div>Net ${this.state.winnings - this.state.plays * 2}</div>
+        <div style={divStyle}>
+          <div>You have played {this.state.plays} times</div>
+          <div>You have spent ${this.state.plays * 2}</div>
+          <div>You have earned ${this.state.winnings}</div>
+          <div>Net ${this.state.winnings - this.state.plays * 2}</div>
+        </div>
 
         <Reset reset={this.reset} />
       </div>
